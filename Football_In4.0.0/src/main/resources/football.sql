@@ -75,4 +75,4 @@ create table team(
 );
 
 alter table team add constraint fk_user
-foreign key(uid) references user(uid);
+foreign key(mid) references user(uid);
