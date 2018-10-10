@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.persistence.TeamDAO">
+	
+	<insert id="create">
+		insert into team(mid, teamname, location, emblem)
+		values(#{mid}, #{teamname}, #{location}, #{emblem})
+	</insert>
+	
+	<update id="manager">
+		update user
+		set team = #{team}
+		where uid = #{uid}
+	</update>
+	
+	<select id="read" resultType="TeamVO">
+		select *
+		from team
+		where tno = #{tno}
+	</select>
+	
+	<update id="update">
+	</update>
+	
+	<delete id="delete">
+	</delete>
+	
+	<select id="listAll" resultType="TeamVO">
+		<![CDATA[
+			select *
+			from teams
+			where 1 = 1
+			order by regdate desc, tno desc
+		]]>
+	</select>
+	
+	<select id="listPage" resultType="TeamVO">
+		<![CDATA[
+			select *
+			from team
+			where 1 = 1
+			order by regdate desc, tno desc
+			limit #{page}, 10		
+		]]>
+	</select>
+
+	<select id="listCriteria" resultType="TeamVO">
+		<![CDATA[
+			select *
+			from team
+			where 1 = 1
+			order by regdate desc, tno desc
+			limit #{pageStart}, #{perPageNum}		
+		]]>
+	</select>
+	
+	<select id="countPaging" resultType="int">
+		<![CDATA[
+			select count(tno)
+			from team
+			where 1 = 1
+		]]>
+	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and teamname like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'l'.toString()">
+				and location like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'm'.toString()">
+				and mid like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+	
+	<select id="listSearch" resultType="TeamVO">
+		<![CDATA[
+			select *
+			from team
+			where 1 = 1
+		]]>
+		<include refid="search"/>
+		<![CDATA[
+			order by regdate desc
+			limit #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+	
+	<select id="listSearchCount" resultType="int">
+		<![CDATA[
+			select count(tno)
+			from team
+			where 1 = 1
+		]]>
+		<include refid="search"/>
+	</select>
+	
+	<select id="getEmblem" resultType="string">
+		select emblem
+		from team
+		where tno = #{tno}
+	</select>
+</mapper>
