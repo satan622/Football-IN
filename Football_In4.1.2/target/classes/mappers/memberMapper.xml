@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.persistence.MemberDAO">
+	
+	<insert id="joinTeam">
+		insert into teammember(uid, tname, uname, location) values(#{uid}, #{tname}, #{uname}, #{location})
+	</insert>
+	
+<!-- 	<update id="updateUserTeam"> -->
+<!-- 		update user -->
+<!-- 		set teamname = #{teamname} -->
+<!-- 		where uid = #{uid} -->
+<!-- 	</update> -->
+	
+<!-- 	<update id="updatePeople"> -->
+<!-- 		update team -->
+<!-- 		set people = #{people} -->
+<!-- 		where teamname = #{teamname} -->
+<!-- 	</update> -->
+	
+	
+</mapper>
