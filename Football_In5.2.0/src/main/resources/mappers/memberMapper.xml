@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.persistence.MemberDAO">
+	
+	<insert id="joinTeam">
+		insert into teammember(uid, tname, uname, location) values(#{uid}, #{tname}, #{uname}, #{location})
+	</insert>
+	
+	<select id="list" resultType="MemberVO">
+		select *
+		from teammember
+		where tname = #{tname}
+		order by regdate desc
+	</select>
+	
+	<delete id="exitTeam">
+		delete from teammember where uid = #{uid}
+	</delete>
+	
+	<select id="getTname" resultType="string">
+		select tname
+		from teammember
+		where uid = #{uid}
+	</select>
+</mapper>
